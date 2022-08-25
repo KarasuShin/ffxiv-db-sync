@@ -1,7 +1,7 @@
 {
   "name": "ffxiv-db-sync",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "packageManager": "pnpm@7.9.0",
   "description": "",
   "author": "Karasu Shin <karasu.shin@gmail.com>",
@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "csv-parse": "^5.3.0",
-    "ffxiv-entity": "0.0.4",
+    "ffxiv-entity": "0.0.5",
     "mysql2": "^2.3.3",
     "node-fetch": "^3.2.10",
     "reflect-metadata": "^0.1.13",

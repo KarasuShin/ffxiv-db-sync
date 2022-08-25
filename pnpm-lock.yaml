@@ -7,7 +7,7 @@ specifiers:
   csv-parse: ^5.3.0
   eslint: ^8.22.0
   esno: ^0.16.3
-  ffxiv-entity: 0.0.4
+  ffxiv-entity: 0.0.5
   mysql2: ^2.3.3
   node-fetch: ^3.2.10
   reflect-metadata: ^0.1.13
@@ -18,7 +18,7 @@ specifiers:
 
 dependencies:
   csv-parse: 5.3.0
-  ffxiv-entity: 0.0.4_mysql2@2.3.3
+  ffxiv-entity: 0.0.5_mysql2@2.3.3
   mysql2: 2.3.3
   node-fetch: 3.2.10
   reflect-metadata: 0.1.13
@@ -2235,8 +2235,8 @@ packages:
       web-streams-polyfill: 3.2.1
     dev: false
 
-  /ffxiv-entity/0.0.4_mysql2@2.3.3:
-    resolution: {integrity: sha512-6GxRCNsoVJ9UlI2DwmgpWopxN6idjl1C+eiudRzfQNGfx8CCJqA/664FY3ZDUCQxmTlUTrC8jLuPoWEQC6v9ow==}
+  /ffxiv-entity/0.0.5_mysql2@2.3.3:
+    resolution: {integrity: sha512-xAEukb7i1qwpicsj2M5kq2Eo7n+R+oziZbm/s6ViqIMMhHnPe1bLbf24nGfCbm1hsf096kfDv9Sf0GUYGDe/vw==}
     dependencies:
       typeorm: 0.3.7_mysql2@2.3.3
     transitivePeerDependencies:
