@@ -1,0 +1,6 @@
+{
+  "extends": "@karasushin",
+  "rules": {
+    "no-console": "off"
+  }
+}
