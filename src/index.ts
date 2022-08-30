@@ -1,10 +1,7 @@
 import 'reflect-metadata'
 import { DataSource } from 'typeorm'
 import entities from 'ffxiv-entity'
-import { syncItemSeries } from './tables/itemSeries'
-import { syncGrandCompany } from './tables/grandCompany'
-import { syncClassJobCategory } from './tables/classJobCategory'
-import { syncClassJob } from './tables/classJob'
+import { ClassJobCategorySync, ClassJobSync, GrandCompanySync, ItemRepairResourceSync, ItemSeriesSync, ItemSync } from './tables'
 
 const AppDataSource = new DataSource({
   type: 'mysql',
@@ -19,11 +16,21 @@ const AppDataSource = new DataSource({
 })
 
 AppDataSource.initialize().then(async () => {
+  const classJobSync = new ClassJobSync(AppDataSource)
+  const classJobCategorySync = new ClassJobCategorySync(AppDataSource)
+  const itemSync = new ItemSync(AppDataSource)
+  const itemRepairResourceSync = new ItemRepairResourceSync(AppDataSource)
+  const itemSeriesSync = new ItemSeriesSync(AppDataSource)
+  const grandCompanySync = new GrandCompanySync(AppDataSource)
   await Promise.all([
-    syncItemSeries(AppDataSource),
-    syncGrandCompany(AppDataSource),
-    syncClassJobCategory(AppDataSource),
-    syncClassJob(AppDataSource),
+    classJobCategorySync.init(),
+    grandCompanySync.init(),
+    itemRepairResourceSync.init(),
+    itemSeriesSync.init(),
   ])
+  await classJobSync.init()
+  await itemSync.init()
+  await itemRepairResourceSync.updateItem()
   console.log('FFXIV SYNC SUCCESS!')
+  process.exit()
 })

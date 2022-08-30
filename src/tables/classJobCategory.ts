@@ -1,55 +1,71 @@
 import type { DataSource } from 'typeorm'
 import { ClassJobCategoryEntity } from 'ffxiv-entity'
 import { fetchData } from '../util'
+import BasicSync from '../BasicSync'
 
-export const syncClassJobCategory = async (dataSource: DataSource) => {
-  const data = await fetchData('ClassJobCategory.csv')
-  await dataSource.manager.save(data.slice(3).map(item => {
-    const ClassJobCategory = new ClassJobCategoryEntity()
-    ClassJobCategory.id = parseInt(item[0])
-    ClassJobCategory.nameHans = item[1]
-    ClassJobCategory.ADV = item[2] === 'TRUE'
-    ClassJobCategory.GLA = item[3] === 'TRUE'
-    ClassJobCategory.PGL = item[4] === 'TRUE'
-    ClassJobCategory.MRD = item[5] === 'TRUE'
-    ClassJobCategory.LNC = item[6] === 'TRUE'
-    ClassJobCategory.ARC = item[7] === 'TRUE'
-    ClassJobCategory.CNJ = item[8] === 'TRUE'
-    ClassJobCategory.THM = item[9] === 'TRUE'
-    ClassJobCategory.CRP = item[10] === 'TRUE'
-    ClassJobCategory.BSM = item[11] === 'TRUE'
-    ClassJobCategory.ARM = item[12] === 'TRUE'
-    ClassJobCategory.GSM = item[13] === 'TRUE'
-    ClassJobCategory.LTW = item[14] === 'TRUE'
-    ClassJobCategory.WVR = item[15] === 'TRUE'
-    ClassJobCategory.ALC = item[16] === 'TRUE'
-    ClassJobCategory.CUL = item[17] === 'TRUE'
-    ClassJobCategory.MIN = item[18] === 'TRUE'
-    ClassJobCategory.BTN = item[19] === 'TRUE'
-    ClassJobCategory.FSH = item[20] === 'TRUE'
-    ClassJobCategory.PLD = item[21] === 'TRUE'
-    ClassJobCategory.MNK = item[22] === 'TRUE'
-    ClassJobCategory.WAR = item[23] === 'TRUE'
-    ClassJobCategory.DRG = item[24] === 'TRUE'
-    ClassJobCategory.BRD = item[25] === 'TRUE'
-    ClassJobCategory.WHM = item[26] === 'TRUE'
-    ClassJobCategory.BLM = item[27] === 'TRUE'
-    ClassJobCategory.ACN = item[28] === 'TRUE'
-    ClassJobCategory.SMN = item[29] === 'TRUE'
-    ClassJobCategory.SCH = item[30] === 'TRUE'
-    ClassJobCategory.ROG = item[31] === 'TRUE'
-    ClassJobCategory.NIN = item[32] === 'TRUE'
-    ClassJobCategory.MCH = item[33] === 'TRUE'
-    ClassJobCategory.DRK = item[34] === 'TRUE'
-    ClassJobCategory.AST = item[35] === 'TRUE'
-    ClassJobCategory.SAM = item[36] === 'TRUE'
-    ClassJobCategory.RDM = item[37] === 'TRUE'
-    ClassJobCategory.BLU = item[38] === 'TRUE'
-    ClassJobCategory.GNB = item[39] === 'TRUE'
-    ClassJobCategory.DNC = item[40] === 'TRUE'
-    ClassJobCategory.RPR = item[41] === 'TRUE'
-    ClassJobCategory.SGE = item[42] === 'TRUE'
-    return ClassJobCategory
-  }))
-  console.log('ClassJobCategory Sync Success')
+class ClassJobCategorySync extends BasicSync<ClassJobCategoryEntity> {
+  constructor(dataSource: DataSource) {
+    super()
+    this.db = dataSource
+    this.repository = dataSource.getRepository(ClassJobCategoryEntity)
+  }
+
+  public async init() {
+    try {
+      this.dataSource = await fetchData('ClassJobCategory.csv')
+      await this.repository.save(this.dataSource.slice(3).map(row => {
+        const classJobCategory = new ClassJobCategoryEntity()
+        classJobCategory.id = parseInt(row[0])
+        classJobCategory.nameHans = row[1]
+        classJobCategory.ADV = row[2] === 'TRUE'
+        classJobCategory.GLA = row[3] === 'TRUE'
+        classJobCategory.PGL = row[4] === 'TRUE'
+        classJobCategory.MRD = row[5] === 'TRUE'
+        classJobCategory.LNC = row[6] === 'TRUE'
+        classJobCategory.ARC = row[7] === 'TRUE'
+        classJobCategory.CNJ = row[8] === 'TRUE'
+        classJobCategory.THM = row[9] === 'TRUE'
+        classJobCategory.CRP = row[10] === 'TRUE'
+        classJobCategory.BSM = row[11] === 'TRUE'
+        classJobCategory.ARM = row[12] === 'TRUE'
+        classJobCategory.GSM = row[13] === 'TRUE'
+        classJobCategory.LTW = row[14] === 'TRUE'
+        classJobCategory.WVR = row[15] === 'TRUE'
+        classJobCategory.ALC = row[16] === 'TRUE'
+        classJobCategory.CUL = row[17] === 'TRUE'
+        classJobCategory.MIN = row[18] === 'TRUE'
+        classJobCategory.BTN = row[19] === 'TRUE'
+        classJobCategory.FSH = row[20] === 'TRUE'
+        classJobCategory.PLD = row[21] === 'TRUE'
+        classJobCategory.MNK = row[22] === 'TRUE'
+        classJobCategory.WAR = row[23] === 'TRUE'
+        classJobCategory.DRG = row[24] === 'TRUE'
+        classJobCategory.BRD = row[25] === 'TRUE'
+        classJobCategory.WHM = row[26] === 'TRUE'
+        classJobCategory.BLM = row[27] === 'TRUE'
+        classJobCategory.ACN = row[28] === 'TRUE'
+        classJobCategory.SMN = row[29] === 'TRUE'
+        classJobCategory.SCH = row[30] === 'TRUE'
+        classJobCategory.ROG = row[31] === 'TRUE'
+        classJobCategory.NIN = row[32] === 'TRUE'
+        classJobCategory.MCH = row[33] === 'TRUE'
+        classJobCategory.DRK = row[34] === 'TRUE'
+        classJobCategory.AST = row[35] === 'TRUE'
+        classJobCategory.SAM = row[36] === 'TRUE'
+        classJobCategory.RDM = row[37] === 'TRUE'
+        classJobCategory.BLU = row[38] === 'TRUE'
+        classJobCategory.GNB = row[39] === 'TRUE'
+        classJobCategory.DNC = row[40] === 'TRUE'
+        classJobCategory.RPR = row[41] === 'TRUE'
+        classJobCategory.SGE = row[42] === 'TRUE'
+        return classJobCategory
+      }))
+      console.log('ClassJobCategory init success')
+    } catch (error) {
+      console.error('ClassJobCategory init fail')
+      throw (error)
+    }
+  }
 }
+
+export default ClassJobCategorySync
